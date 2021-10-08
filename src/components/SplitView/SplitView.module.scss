@@ -1,0 +1,19 @@
+.SplitView {
+  width: 100%;
+  display: flex;
+  z-index: 0;
+  height: 100vh;
+  overflow-y: hidden;
+  position: relative;
+  .SplitViewMainBody {
+    width: 65%;
+    min-height: 100vh;
+    // visibility: hidden;
+    padding: 0.5rem;
+    box-sizing: border-box;
+    flex-grow: 1;
+    .scrollView {
+      overflow-y: scroll;
+    }
+  }
+}

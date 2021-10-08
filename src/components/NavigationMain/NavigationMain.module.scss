@@ -1,0 +1,143 @@
+.NavigationMain {
+    background-color: var(--bg-color);
+  height: 100vh;
+  padding: 0.5rem;
+  margin-right: 0.5rem;
+  box-sizing: border-box;
+  width: 100%;
+  overflow-y: scroll;
+  z-index: 1000;
+  *{
+    box-sizing: border-box;
+  }
+    @media only screen and (max-width: 767px) {
+    /* For tablets: */
+  &{
+    width: 100%;
+  }
+}
+//   @media only screen and (min-width: 768px) {
+//     /* For tablets: */
+//   &{
+//     width: 20%;
+//     position: fixed;
+//   }
+// }
+// @media only screen and (min-width: 992px) {
+//     /* For desktop: */
+//   &{
+//     width: 100%;
+//     position: relative;
+//   }
+// }
+
+
+  .topView {
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    border-radius: var(--border-radius);
+    padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+    cursor: pointer;
+    &:hover {
+      background-color: var(--accent-color);
+      color: var(--color_on_accent);
+    }
+    .logoHolder {
+      width: auto;
+      height: auto;
+      img {
+        border-radius: 50%;
+        object-fit: cover;
+        object-position: center;
+        width: 2rem;
+        aspect-ratio: 1;
+      }
+    }
+    
+      .midView {
+      padding-left: 1rem;
+      padding-right: 1rem;
+      flex-grow: 1;
+      white-space: nowrap;
+        .text {
+      font-size: larger;
+      font-weight: 700;
+      text-align: start;
+      white-space: nowrap;
+        }
+        .subText {
+      white-space: nowrap;
+          text-align: start;
+          font-size: 0.7rem;
+          font-weight: 600;
+        }
+      }
+
+    .endIcon {
+      font-size: 2rem;
+      margin-bottom: -0.5rem;
+    }
+  }
+  .blockIconButtonHolder {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
+    box-sizing: border-box;
+    // padding-top: 0.5rem;
+    .blockIconButton {
+      font-size: 1.3rem;
+      border-radius: var(--border-radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+      cursor: pointer;
+      padding: 0.5rem;
+      span {
+        padding-left: 0.5rem;
+        font-weight: 500;
+        font-size: 0.9rem;
+    box-sizing: border-box;
+        white-space: nowrap;
+      }
+      &:hover {
+        background-color: var(--accent-color);
+        color: var(--color_on_accent) !important;
+      }
+        @media only screen and (max-width: 767px) {
+    /* For tablets: */
+  span{
+    display: none;
+  }
+}
+//   @media only screen and (min-width: 768px) {
+//     /* For tablets: */
+//   .leftMenu{
+//     width: 32%;
+//   }
+    
+// }
+// @media only screen and (min-width: 992px) {
+//     /* For desktop: */
+//   .leftMenu{
+//     position: relative;
+//   }
+// }
+// @media only screen and (min-width: 1200px) {
+//     /* For desktop: */
+//   .leftMenu{
+//     position: relative;
+//   }
+// }
+
+
+    }
+  }
+  .navItemsHolder {
+    align-items: center;
+    padding-top: 0.5rem;
+  
+  }
+}

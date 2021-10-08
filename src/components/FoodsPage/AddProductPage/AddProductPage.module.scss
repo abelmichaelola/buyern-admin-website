@@ -1,0 +1,22 @@
+.AddProductPage {
+  .BodyView {
+      .title{
+          font-size: 1.2rem;
+          display: flex;
+          align-items: center;
+          padding-top: 0.5rem;
+      }
+    form {
+      width: 100%;
+display: flex;
+      input[type="submit"] {
+          justify-content: center;
+          margin: 0rem auto;
+        width: fit-content;
+      }
+      .phoneCode{
+          width: fit-content;
+      }
+    }
+  }
+}

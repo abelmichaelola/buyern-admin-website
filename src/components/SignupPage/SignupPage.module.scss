@@ -1,0 +1,309 @@
+.SignupPage.main {
+      width: 100%;
+      height: 90vh;
+      border-radius: var(--border-radius);
+      padding-top: 2rem;
+      padding-bottom: 2rem;
+      box-sizing: border-box;
+      background: var(--bg-color);
+      position: relative !important;
+      display: flex !important;
+      flex-direction: row !important;
+      justify-content: center !important;
+      align-items: flex-start !important;
+      overflow-y: scroll;
+      
+  @media only screen and (max-width: 767px) {
+    & {
+        padding-left: 3rem !important;
+        padding-right: 3rem !important;
+        box-sizing: border-box !important;
+      display: flex;
+      flex-direction: column !important;
+      justify-content: flex-start !important;
+      .titles {
+        width: 100% !important;
+        box-sizing: border-box;
+        align-items: flex-start;
+        position: relative !important;
+        & > div {
+          position: relative !important;
+          width: 100% !important;
+          & > div {
+            font-size: 2rem !important;
+          }
+        }
+      }
+      form{
+        width: 100% !important;
+        padding: 1rem 1rem !important;
+        box-sizing: border-box;
+                .formItem {
+                justify-items: flex-start !important;
+                align-items: flex-start;
+                }
+                
+        .formItemsH {
+          display: block !important;
+          width: 100%;
+          gap: 1rem;
+          .formItem {
+            width: 100% !important;
+            flex-grow: 1;
+            &.phoneCode {
+              width: fit-content;
+              max-width: 9rem;
+            }
+          }
+        }
+
+
+      }
+    }
+  
+  }
+      .titles {
+        width: 50%;
+        position: relative;
+        box-sizing: border-box;
+        align-self: center;
+        & > div {
+          position: fixed;
+          width: 38%;
+        }
+      }
+
+      form {
+        font-size: 1rem;
+        display: flex;
+        flex-direction: column;
+        margin-top: 1rem;
+        width: 35%;
+        .formItem {
+          margin-bottom: 1rem;
+          display: flex;
+          width: 100%;
+          position: relative;
+          flex-direction: column;
+          justify-items: center;
+          align-items: flex-start;
+          label {
+            font-size: 0.8rem;
+            span {
+              color: var(--danger-color);
+            }
+          }
+          .ErrorMsg {
+            color: var(--danger-color);
+          }
+          input[type="text"],
+          input[type="number"],
+          input[type="date"],
+          input[type="password"],
+          select {
+            width: 100%;
+            padding: 12px 25px;
+            margin: 8px 0;
+            box-sizing: border-box;
+            outline: none;
+              border: 2px solid transparent;
+            font-size: larger;
+            border-radius: var(--border-radius);
+            background-color: var(--primary-filter2);
+            color: var(--secondary-text-color);
+            &:active {
+              border: 2px solid var(--accent-color);
+            }
+            &:focus {
+              border: 2px solid var(--accent-color);
+            }
+            &:hover {
+              border: 2px solid var(--accent-color);
+            }
+          }
+          select{
+            cursor: pointer;
+          }
+          input[type="file"] {
+            display: none;
+            flex-grow: 1;
+            padding: 12px 30px;
+            margin: 8px 0;
+            box-sizing: border-box;
+            outline: none;
+            border: none;
+            font-size: larger;
+            border-radius: var(--border-radius);
+            // background-color: var(--primary-filter2);
+            color: var(--secondary-text-color);
+          }
+
+          input[type="submit"] {
+            &:disabled {
+              opacity: 0.4;
+              padding: 0.5rem;
+              cursor: not-allowed;
+              &:hover {
+                color: var(--color_on_accent);
+                background-color: var(--accent-color);
+                border: 2px solid var(--accent-color);
+              }
+            }
+            width: 100%;
+            padding: 12px 30px;
+            background-color: var(--accent-color);
+            color: var(--color_on_accent);
+            cursor: pointer;
+            border: 2px solid transparent;
+            border-radius: var(--border-radius);
+            margin: 8px 0;
+            &:hover {
+              color: var(--primary-color);
+              background-color: var(--bg-color);
+              border: 2px solid var(--accent-color);
+            }
+            &:active {
+              background-color: var(--accent-color);
+              color: var(--color_on_accent);
+              border: 2px solid transparent;
+            }
+          }
+
+          .image {
+            display: flex;
+            justify-content: center;
+            position: relative;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            width: 50%;
+            aspect-ratio: 1;
+            border: 2px solid transparent;
+            outline-style: none;
+            &:hover {
+              border: 2px solid var(--accent-color);
+            }
+            &:focus {
+              border: 2px solid var(--accent-color);
+            }
+            &:active {
+              border: 2px solid var(--accent-color);
+            }
+            img {
+              width: 100%;
+               aspect-ratio: 1;
+              object-fit: cover;
+              object-position: center;
+              border-radius: var(--border-radius);
+              max-height: 200px;
+              &.hide {
+                visibility: hidden;
+              }
+              &.show {
+                visibility: visible;
+              }
+            }
+            div {
+              position: absolute;
+              width: 100%;
+              height: 100%;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              font-size: 5rem;
+              border-radius: var(--border-radius);
+              background-color: var(--primary-filter2);
+ 
+              &.hide {
+                display: none;
+              }
+              &.show {
+                display: flex;
+              }
+            }
+          }
+
+          .deleteButton {
+            aspect-ratio: 1;
+            margin: 8px;
+            width: 3rem;
+            box-sizing: border-box;
+            display: flex;
+            position: absolute;
+            justify-content: center;
+            align-items: center;
+            font-size: larger;
+            border-radius: var(--border-radius);
+            background-color: var(--danger-color);
+            color: var(--primary-text-color);
+            cursor: pointer;
+            font-size: 2rem;
+            &.hide {
+              visibility: hidden;
+            }
+            &:hover {
+              background-color: var(--bg-color);
+              color: var(--secondary-text-color);
+            }
+            &:active {
+              background-color: var(--primary-filter2);
+              color: var(--danger-color);
+            }
+          }
+
+          .blockIconButtonHolder {
+            display: flex;
+            justify-content: flex-end;
+            width: 100%;
+            flex-wrap: wrap;
+            align-items: center;
+            box-sizing: border-box;
+            padding-top: 0.5rem;
+            .blockIconButton {
+              font-size: 1.3rem;
+              border-radius: var(--border-radius);
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              box-sizing: border-box;
+              cursor: pointer;
+              padding: 0.5rem;
+              span {
+                padding-left: 0.5rem;
+                font-weight: 500;
+                font-size: 0.9rem;
+                box-sizing: border-box;
+                white-space: nowrap;
+              }
+              &:hover {
+                background-color: var(--accent-color);
+                & * {
+                  color: var(--color_on_accent) !important;
+                }
+              }
+              &:active {
+                background-color: transparent;
+                & * {
+                  color: var(--secondary-text-color) !important;
+                }
+              }
+            }
+          }
+        }
+
+        .formItemsH {
+          display: flex;
+          justify-content: space-between;
+          width: 100%;
+          gap: 1rem;
+          .formItem {
+            width: 50%;
+            flex-grow: 1;
+            &.phoneCode {
+              width: fit-content;
+              max-width: 9rem;
+            }
+          }
+        }
+      }
+    }
+ 

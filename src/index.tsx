@@ -1,12 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import './index.scss';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-
+import { BrowserRouter } from 'react-router-dom';
+import { CookiesProvider } from 'react-cookie';
+import { UserController } from './Controllers/UserController';
+import UserContext from './Contexts/UserContext';
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <CookiesProvider>
+      <BrowserRouter>
+        <UserContext.Provider value={new UserController()}>
+          <App />
+        </UserContext.Provider>
+      </BrowserRouter>
+    </CookiesProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

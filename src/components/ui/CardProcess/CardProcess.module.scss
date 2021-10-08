@@ -1,0 +1,120 @@
+.CardProcess {
+  background-color: var(--primary-filter2);
+  padding: var(--dimen1);
+  border-radius: var(--border-radius);
+  margin: 0px;
+  box-sizing: border-box;
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: flex-start;
+  box-sizing: border-box;
+  // height: fit-content;
+  .cardhead {
+    width: 100%;
+    padding: 0px;
+    margin: 0px;
+
+    h2 {
+      margin: 0px;
+      padding: 0px;
+      display: flex;
+      align-items: center;
+      font-size: 1.1rem;
+      .icon {
+        font-size: 2rem;
+        padding-right: 0.5rem;
+        margin-bottom: -0.5rem;
+      }
+      &.normal {
+      }
+      &.unattended {
+        color: var(--danger-color);
+        .icon {
+          * {
+            color: var(--danger-color);
+          }
+        }
+      }
+      &.processing {
+        color: var(--processing-color);
+        .icon {
+          * {
+            color: var(--processing-color);
+          }
+        }
+      }
+      &.completed {
+        color: var(--success-color);
+        .icon {
+          * {
+            color: var(--success-color);
+          }
+        }
+      }
+    }
+  }
+  .cardBody {
+    .cardBodyListItemHolder {
+      display: flex;
+      flex-direction: column;
+      .cardBodyListItem {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        padding-top: 0.5rem;
+        &.normal {
+        }
+        &.unattended {
+          .icon {
+            * {
+              color: var(--danger-color);
+            }
+          }
+        }
+        &.processing {
+          .icon {
+            * {
+              color: var(--processing-color);
+            }
+          }
+        }
+        &.completed {
+          .icon {
+            * {
+              color: var(--success-color);
+            }
+          }
+        }
+        .icon {
+          margin-bottom: -0.5rem;
+          font-size: 1.5rem;
+        }
+        .body {
+          padding-left: 0.5rem;
+          .anchorText{
+            font-size: smaller;
+            padding-top: 0.5rem;
+          }
+          .mainTitle{
+            font-size: 1rem;
+            font-weight: 500;
+          }
+          .title {
+
+          }
+          .subtitle {
+font-weight: 100;
+          }
+        }
+        &:hover {
+          text-decoration: underline;
+        }
+        &:active {
+          text-decoration: none;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,33 @@
+.FoodsPage {
+  width: 100%;
+  display: flex;
+  z-index: 0;
+  height: 100vh;
+  overflow-y: hidden;
+  position: relative;
+  .MenuList{
+    width: 100%;
+  }
+  .scrollView{
+  height: 100vh;
+  overflow-y: auto;
+  }
+}
+
+// .FoodsPage {
+//   display: flex;
+//   flex-direction: row-reverse;
+//   position: relative;
+
+//   .MainHolder {
+//     box-sizing: border-box;
+//     padding: 0.5rem;
+//   }
+
+//   .RightSideMenuHolder {
+//     position: absolute;
+//     padding: 0.5rem;
+//     box-sizing: border-box;
+//     left: 0;
+//   }
+// }

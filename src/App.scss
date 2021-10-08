@@ -1,0 +1,279 @@
+:root {
+  --fontType: "proximaNova", Georgia, Serif;
+  --fontTypeThin: "proximaNovaThin", Georgia, Serif;
+  --fontTypeBold: "proximaNovaBold", Georgia, Serif;
+  --fontTypeXBold: "proximaNovaXBold", Georgia, Serif;
+  --fontTypeBlack: "proximaNovaBlack", Georgia, Serif;
+  --danger-color: red;
+  --success-color: #00c911;
+  --processing-color: rgb(187, 187, 0);
+
+  --accent-secondary-color: #161616;
+  --accent-color: #696969;
+  --color_on_accent: rgba(255, 255, 255, 1);
+  --header-height: 3.5rem;
+  --border-radius: 0.3rem;
+  --transition-duration: 50ms;
+  --dimen1: 1rem;
+  --dimen2: 0.5rem;
+  --dark-filter: rgba(0, 0, 0, 0.6);
+
+  --primary-color: rgb(10, 10, 10);
+  --primary-filter: rgba(0, 0, 0, 0.7);
+  --primary-filter2: rgba(0, 0, 0, 0.1);
+  --primary-text-color: rgba(255, 255, 255, 0.925);
+
+  --secondary-color: white;
+  --secondary-filter: rgba(255, 255, 255, 0.7);
+  --secondary-text-color: rgba(0, 0, 0, 0.7);
+  --bg-color: #fff;
+  --bg-color-2: rgba(0, 0, 0, 0.089);
+}
+
+[data-theme="dark"] {
+  --accent-secondary-color: #ffffff;
+  --accent-color: #c0c0c0;
+  --color_on_accent: rgb(0, 0, 0);
+  --primary-color: rgb(167, 153, 153);
+  --primary-filter: rgba(255, 255, 255, 0.7);
+  --primary-filter2: rgba(255, 255, 255, 0.1);
+  --primary-text-color: rgba(0, 0, 0, 0.7);
+
+  --secondary-color: rgb(10, 10, 10);
+  --secondary-filter: rgba(0, 0, 0, 0.7);
+  --secondary-text-color: rgba(255, 255, 255, 0.7);
+  --bg-color: #000;
+  --bg-color-2: rgb(255, 255, 255, 0.103);
+}
+* {
+  color: var(--secondary-text-color);
+  font-family: "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
+    "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  // font-family: var(--fontTypeBold);
+  & > div {
+    transition-duration: var(--transition-duration);
+  }
+  select {
+    * {
+      background-color: var(--secondary-filter);
+    }
+  }
+  transition-duration: var(--transition-duration);
+}
+a {
+  text-decoration: none;
+  &:visited {
+    color: var(--secondary-text-color);
+  }
+}
+.TitleHolder1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--accent-color);
+}
+
+.TitleHolder2 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--accent-secondary-color);
+}
+
+label {
+  font-size: 1rem !important;
+}
+input::placeholder {
+  font-size: 1rem !important;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+}
+
+textarea {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  &:placeholder-shown {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+      "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+      "Helvetica Neue", sans-serif;
+  }
+}
+body{
+  background: var(--bg-color);
+}
+.App {
+  text-align: center;
+  background: var(--bg-color);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: row-reverse;
+  position: relative;
+  // transition-duration: 2000ms;
+  .leftMenu {
+    width: 260px;
+    box-sizing: border-box;
+    transition: cubic-bezier(0.455, 0.03, 0.515, 0.955);
+    transition-duration: 300ms;
+  }
+  .bodyHolderMain {
+    flex-grow: 1;
+    // text-align: center;
+    text-align: start;
+    display: flex;
+    flex-direction: column;
+    overflow-y: hidden;
+    height: 100vh;
+  }
+  .backgroundExit {
+    background-color: var(--dark-filter);
+    display: none;
+    position: fixed;
+    cursor: pointer;
+    z-index: 0;
+    width: 100vw;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+
+  @media only screen and (max-width: 767px) {
+    /* For tablets: */
+    .leftMenu {
+      width: 50% !important;
+      // position: fixed;
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+    }
+  }
+  @media only screen and (max-width: 450px) {
+    /* For tablets: */
+    .leftMenu {
+      width: 80% !important;
+      // position: fixed;
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+    }
+  }
+  @media only screen and (min-width: 768px) {
+    /* For tablets: */
+    .leftMenu {
+      width: 50%;
+      position: fixed;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      height: 100vh;
+      box-sizing: border-box;
+      // position: fixed;
+    }
+    .bodyHolderMain {
+    }
+  }
+  @media only screen and (min-width: 992px) {
+    /* For desktop: */
+    .leftMenu {
+      width: auto;
+      position: relative;
+      box-sizing: border-box;
+    }
+    .bodyHolderMain {
+    }
+  }
+  @media only screen and (min-width: 1096px) {
+    /* For desktop: */
+    .leftMenu {
+      width: 260px;
+      // position: fixed;
+      box-sizing: border-box;
+    }
+    .bodyHolderMain {
+    }
+  }
+  @media only screen and (min-width: 1200px) {
+    /* For desktop: */
+    .leftMenu {
+      width: 260px;
+      // position: fixed;
+      box-sizing: border-box;
+    }
+    .bodyHolderMain {
+    }
+  }
+}
+
+.sideBarSwitcherHolder {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  padding: 0.5rem;
+  box-sizing: border-box;
+}
+.blockIconButton {
+  border: 2px solid transparent;
+  font-size: 1.3rem;
+  border-radius: var(--border-radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  cursor: pointer;
+  padding: 0.5rem;
+  width: fit-content;
+  height: fit-content;
+  background-color: transparent;
+  &:hover {
+    // border: 2px solid var(--accent-color);
+    background-color: var(--primary-filter2);
+    color: var(--color_on_accent) !important;
+  }
+  @media only screen and (max-width: 767px) {
+    /* For tablets: */
+    span {
+      display: none;
+    }
+  }
+}
+
+.card {
+  background-color: var(--bg-color-2);
+  padding: var(--dimen1);
+  border-radius: var(--border-radius);
+  margin: 0px;
+  box-sizing: border-box;
+  // width: fit-content;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  box-sizing: border-box;
+  // height: fit-content;
+  .cardhead {
+    width: 100%;
+  }
+  .cardBody {
+    .cardBodyListItemHolder {
+      display: flex;
+      flex-direction: column;
+      .cardBodyListItem {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        .icon {
+          padding-top: 0.5rem;
+          font-size: 1.5rem;
+        }
+        &:hover{
+          text-decoration: underline;
+        }
+        &:active{
+          text-decoration: none;
+        }
+      }
+    }
+  }
+}

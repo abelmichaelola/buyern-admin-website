@@ -1,0 +1,49 @@
+.TabNavigation {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: scroll;
+  flex-grow: 1;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  box-sizing: border-box;
+  &:hover {
+    &::-webkit-scrollbar-thumb {
+      visibility: visible;
+    }
+  }
+  .Item {
+    padding: 0.5rem;
+    border-radius: var(--border-radius);
+    // background-color: var(--primary-filter);
+    // color: var(--primary-text-color);
+    cursor: pointer;
+    transition-duration: var(--transition-duration);
+    border-bottom: 3px solid transparent;
+    white-space: nowrap;
+    &.active {
+      // background-color: var(--primary-filter2);
+      // color: var(--secondary-text-color);
+      border-radius: 0px;
+      box-sizing: border-box;
+      font-weight: 500;
+      color: var(--accent-color);
+      border-bottom: 3px solid var(--accent-secondary-color);
+    &:hover {
+      background-color: var(--primary-filter2);
+      border-radius: var(--border-radius) var(--border-radius) 0 0;
+      // border-bottom: 3px solid transparent;
+      color: var(--secondary-text-color);
+    }
+    }
+    &:hover {
+      background-color: var(--primary-filter2);
+      border-radius: var(--border-radius);
+      // border-bottom: 3px solid transparent;
+      color: var(--secondary-text-color);
+    }
+    &:active {
+      border-bottom: 3px solid var(--accent-secondary-color);
+      border-radius: var(--border-radius) var(--border-radius) 0 0;
+    }
+  }
+}
