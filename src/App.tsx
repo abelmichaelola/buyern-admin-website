@@ -47,7 +47,7 @@ class App extends Component<Props, State> {
     };
   }
   // Get a list of cities from your database
-  getCities(db: Firestore) {                       
+  getCities(db: Firestore) {
     // const citiesCol = collection(db, "users");
     // getDocs(citiesCol).then((value: QuerySnapshot<DocumentData>) => {
     //   value.docs.forEach((value: QueryDocumentSnapshot<DocumentData>, index: number, array: QueryDocumentSnapshot<DocumentData>[]) => {
@@ -64,7 +64,7 @@ class App extends Component<Props, State> {
   }
 
   darkModeSwitch = () => {
-    this.getCities(this.context.firebaseConnect.firestore);
+    // this.getCities(this.context.firebaseConnect.firestore);
     if (this.context.getTheme(this) === "dark") {
       this.context.setTheme("light");
     } else {
@@ -108,6 +108,7 @@ class App extends Component<Props, State> {
   }
 
   componentDidMount() {
+    this.userAccountHandler();
     this.setState({
       isDarkMode: this.context.getTheme(this) === "dark" ? true : false,
       sideBarState: SIDEBAR_STATES.EXPANDED,
@@ -130,6 +131,9 @@ class App extends Component<Props, State> {
   componentWillUnmount() {
     // this.context.cookies.removeChangeListener(()=>{});
     this.context.cookies.removeChangeListener(() => { })
+  }
+  userAccountHandler = () => {
+    // console.log(this.context.getUser());
   }
   resizeSetter = (): string => {
     if (this.state.sideBarState === SIDEBAR_STATES.EXPANDED) {
@@ -183,13 +187,13 @@ class App extends Component<Props, State> {
             <Route path={["/myAccount/finances"]} render={(props) => <UserFinancesPage toggleSideView={this.toggleSideView} {...props} />} />
             <Route exact path={["/myAccount", "/"]} render={(props) => <Redirect {...props} to={"/myAccount/dashboard"} />} />
             <Route exact path={["/business", this.businessPageBaseUrl]}
-            render={(props: any) => 
-              <Redirect {...props} to={props.match.params.businessId
-                ? "/business/" + props.match.params.businessId + "/dashboard" 
-              : ():string=>{
-              return "/business/getdefaultId/dashboard";
-            }} />
-            } />
+              render={(props: any) =>
+                <Redirect {...props} to={props.match.params.businessId
+                  ? "/business/" + props.match.params.businessId + "/dashboard"
+                  : (): string => {
+                    return "/business/getdefaultId/dashboard";
+                  }} />
+              } />
             <Route exact path={"/"} render={(props) => <Redirect {...props} to={"/myAccount/dashboard"} />} />
             {/* <Route path={"/"} render={(props) => <PermissionsPage toggleSideView={this.toggleSideView} {...props} />} /> */}
           </Switch>

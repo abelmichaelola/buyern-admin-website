@@ -14,13 +14,14 @@ interface State {
 }
 class SplitView extends Component<Props, State> {
   scrollStyle: string = "scrollbarHandle";
+  leftViewPathString: string = "";
   splitViewStyles: { readonly [key: string]: string } = splitViewStyles;
   constructor(props: Props) {
     super(props);
     if (window.innerWidth < 769) {
       this.state = {
         leftViewIsExact: true,
-        leftViewPath: ["*/bash/:random"]
+        leftViewPath: [this.leftViewPathString]
       }
     } else {
       this.state = {
@@ -34,7 +35,7 @@ class SplitView extends Component<Props, State> {
     if (isSmall) {
       this.setState({
         leftViewIsExact: true,
-        leftViewPath: ["*/bash/:random"]
+        leftViewPath: [this.leftViewPathString]
       })
     } else {
       this.setState({

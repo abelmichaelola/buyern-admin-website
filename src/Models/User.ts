@@ -1,16 +1,17 @@
+import Location from "./Location";
+
 interface User {
   // location?: Location;
   uid?: string;
-  firstname?: string;
-  lastname?: string;
+  firstName?: string;
+  lastName?: string;
   email?: string;
-  country?: string;
-  state?: string;
-  city?: string;
   image?: string;
-  zipCode?: number;
+  coverImage?: string;
   accessJWT?: string;
   theme?: string;
+  financeId?: string;
+  location?: Location;
 }
 
 export default User;

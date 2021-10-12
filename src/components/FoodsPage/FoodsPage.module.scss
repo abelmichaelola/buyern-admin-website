@@ -1,33 +1,21 @@
-.FoodsPage {
+.SplitViewTemplateComponent {
   width: 100%;
   display: flex;
   z-index: 0;
   height: 100vh;
   overflow-y: hidden;
   position: relative;
-  .MenuList{
-    width: 100%;
-  }
-  .scrollView{
-  height: 100vh;
-  overflow-y: auto;
+  .SplitViewMainBody {
+    width: 65%;
+    min-height: 100vh;
+    // visibility: hidden;
+    padding: 0.5rem;
+    box-sizing: border-box;
+    flex-grow: 1;
+    .scrollView {
+      overflow-y: scroll;
+    }
   }
 }
 
-// .FoodsPage {
-//   display: flex;
-//   flex-direction: row-reverse;
-//   position: relative;
-
-//   .MainHolder {
-//     box-sizing: border-box;
-//     padding: 0.5rem;
-//   }
-
-//   .RightSideMenuHolder {
-//     position: absolute;
-//     padding: 0.5rem;
-//     box-sizing: border-box;
-//     left: 0;
-//   }
-// }
+.OrdersPage {}

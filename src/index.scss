@@ -57,6 +57,14 @@ body {
     align-items: center;
     box-sizing: border-box;
     // padding-top: 0.5rem;
+    .active{
+      .blockIconButton{
+        background-color: var(--accent-color);
+        *{
+          color: var(--color_on_accent) !important;
+        }
+      }
+    }
     .blockIconButton {
       font-size: 1.3rem;
       border-radius: var(--border-radius);

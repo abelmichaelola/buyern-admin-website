@@ -10,7 +10,7 @@ import { BiInfoCircle, BiCog, BiQuestionMark } from 'react-icons/bi';
 import SplitView from './../SplitView/SplitView';
 
 class OrdersPage extends SplitView {
-
+  leftViewPathString: string = "*/bash/:random";
   componentDidMount() {
     this.getBashes();
   }
@@ -40,7 +40,7 @@ class OrdersPage extends SplitView {
   render() {
     return (
       <div className={styles.SplitViewTemplateComponent}>
-        <Route exact path={"*/orders/activeOrders"} render={(props) => (<Redirect to={props.match.url + "/bash/allOrders"} />)} />,
+        <Route exact path={"*/orders/activeOrders"} render={(props) => (<Redirect to={props.match.url + "/bash/allOrders"} />)} />
         <Route exact={this.state.leftViewIsExact} path={this.state.leftViewPath} render={(props) => (
           <SplitViewLeftSide {...props}>
             <LeftSideTop toggleSideView={this.props.toggleSideView} tabNavigation={<TabNavigation>{this.state.tabNav}</TabNavigation >}>

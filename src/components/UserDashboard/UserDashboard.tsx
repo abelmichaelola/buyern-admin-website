@@ -1,17 +1,23 @@
 import React, { Component } from 'react';
 import styles from './UserDashboard.module.scss';
 import CardProcess, { CardProcessItem, CARD_STATUS } from './../ui/CardProcess/CardProcess';
-import { BiMenu, BiRightArrowAlt } from 'react-icons/bi';
+import { BiMenu, BiRightArrowAlt, BiUser } from 'react-icons/bi';
+import UserContext from '../../Contexts/UserContext';
+import User from '../../Models/User';
+import logo from '../../assets/logo192.png';
 interface Props {
   toggleSideView: Function;
   match?: any;
 }
 interface State {
-
+  user?: User;
 }
 class UserDashboard extends Component<Props, State> {
+  static contextType = UserContext;
+  context!: React.ContextType<typeof UserContext>;
   cardStyle: string = "card";
   navSwitcher: string = "blockIconButton";
+
   cardItems: CardProcessItem[] = [
     {
       link: "/notification/emailVerification",
@@ -104,16 +110,41 @@ class UserDashboard extends Component<Props, State> {
       mainTitle: "+ 20 more",
     },
   ];
-  
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      user: {}
+    }
+  }
+
+  componentDidMount() {
+    this.setState({
+      user: this.context.getUser()
+    })
+  }
   render() {
     return (
       <div className={styles.UserDashboard + " scrollbarHandle"}>
         <div className={styles.topViewHolder}>
-          <img src={"http://localhost/profileImage.jpg"} alt={"Business Logo"} />
+          {
+            this.state.user?.coverImage ?
+              <img src={this.state.user?.coverImage} alt={this.state.user?.firstName + " " + this.state.user?.lastName + " cover Image"} />
+              :
+              (
+                this.state.user?.coverImage ?
+                  <img src={this.state.user?.image} alt={this.state.user?.firstName + " " + this.state.user?.lastName} />
+                  : <img src={logo} alt={"Buyern"} style={{ scale: "3" }} />
+              )
+          }
           <div className={styles.topView} >
             <div className={this.navSwitcher + " " + styles.navSwitcher} onClick={() => { this.props.toggleSideView() }}><BiMenu /></div>
             <div className={styles.storeLogoView}>
-              <img src={"http://localhost/profileImage.jpg"} alt={"Abel Michael"} />
+              {
+                this.state.user?.image ?
+                  <img src={"http://localhost/profileImage.jpg"} alt={"Abel Michael"} />
+                  :
+                  <BiUser />
+              }
               {/* <h3>Shenis Apparel</h3> */}
             </div>
           </div>
@@ -159,43 +190,6 @@ class UserDashboard extends Component<Props, State> {
           <div className={this.cardStyle}>Dashboard Component</div>
           <div className={this.cardStyle}>Dashboard Component</div>
           <div className={this.cardStyle}>Dashboard Component</div>
-          <div className={this.cardStyle}>Dashboard Component</div>
-        </div>
-
-        <div className={styles.TitleHolder}>Orders</div>
-        <div className={styles.CardHolder + " " + styles.col3}>
-          <div className={this.cardStyle}>Dashboard Component</div>
-          <div className={this.cardStyle}>Dashboard Component</div>
-          <div className={this.cardStyle}>Dashboard Component</div>
-        </div>
-
-        <div className={styles.TitleHolder}>Finances</div>
-        <div className={styles.CardHolder + " " + styles.col1}>
-          <div className={this.cardStyle}>Dashboard Component</div>
-        </div>
-
-        <div className={styles.TitleHolder}>Admin / Permission</div>
-        <div className={styles.CardHolder + " " + styles.col3}>
-          <div className={this.cardStyle}>Dashboard Component</div>
-          <div className={this.cardStyle}>Dashboard Component</div>
-          <div className={this.cardStyle}>Dashboard Component</div>
-        </div>
-
-        <div className={styles.TitleHolder}>Gift Cards</div>
-        <div className={styles.CardHolder + " " + styles.col3}>
-          <div className={this.cardStyle}>Dashboard Component</div>
-          <div className={this.cardStyle}>Dashboard Component</div>
-          <div className={this.cardStyle}>Dashboard Component</div>
-        </div>
-
-        <div className={styles.TitleHolder}>Delivery</div>
-        <div className={styles.CardHolder + " " + styles.col2}>
-          <div className={this.cardStyle}>Dashboard Component</div>
-          <div className={this.cardStyle}>Dashboard Component</div>
-        </div>
-
-        <div className={styles.TitleHolder}>Menu / Foods</div>
-        <div className={styles.CardHolder + " " + styles.col1}>
           <div className={this.cardStyle}>Dashboard Component</div>
         </div>
       </div>

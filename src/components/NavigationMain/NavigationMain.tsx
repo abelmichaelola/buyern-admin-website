@@ -1,17 +1,14 @@
 import React, { Component } from 'react';
 import styles from './NavigationMain.module.scss';
-import { FaSignInAlt, FaSignOutAlt } from 'react-icons/fa';
-import { BiUser, BiBulb, BiQuestionMark, BiStoreAlt, BiHomeAlt, BiListUl, BiMoney, BiLockAlt, BiBus, BiCake, BiListOl, BiChart, BiCog, BiFoodTag, BiPlus, BiMinus } from 'react-icons/bi';
-import { Link, NavLink, Route, Switch } from 'react-router-dom';
+import { BiUser, BiBulb, BiStoreAlt, BiHomeAlt, BiListUl, BiMoney, BiLockAlt, BiBus, BiCake, BiListOl, BiChart, BiCog, BiFoodTag, BiPlus, BiMinus, BiRefresh } from 'react-icons/bi';
+import { Link, Route, Switch } from 'react-router-dom';
 import MainTag from '../ui/MainTag/MainTag';
-
 import User from '../../Models/User';
 import BusinessRegisterationPage from '../BusinessRegisterationPage/BusinessRegisterationPage';
 import LoginPage from '../LoginPage/LoginPage';
 import SignupPage from '../SignupPage/SignupPage';
 import NavigationItem from './NavigationItem/NavigationItem';
 import UserContext from '../../Contexts/UserContext';
-import { DataSource } from '../../Controllers/UserController';
 interface Props {
   DarkModeChanger: Function;
   sideMenuSwitcher: Function;
@@ -28,10 +25,6 @@ class NavigationMain extends Component<Props, State> {
   context!: React.ContextType<typeof UserContext>;
   constructor(props: Props) {
     super(props);
-    // if (!this.context.getActiveUserId()){
-    //   return;
-    // }
-
     this.state = {
       user: {},
       isSignedIn: false
@@ -39,15 +32,14 @@ class NavigationMain extends Component<Props, State> {
   }
   componentDidMount() {
     this.setState({
-      user: (this.context.getUser(DataSource.LOCAL) !== null) ? this.context.getUser(DataSource.LOCAL) : { firstname: "abel" },
-      isSignedIn: this.context.getActiveUserId() ? true : false
+      user: (this.context.getUser()),
     })
-    this.context.cookies.addChangeListener(() => {
-      this.setState({
-        user: this.context.getUser(DataSource.LOCAL),
-        // isSignedIn: this.context.isLoggedIn(this)
-      })
-    });
+    // this.context.cookies.addChangeListener(() => {
+    //   this.setState({
+    //     user: this.context.getUser(DataSource.LOCAL),
+    //     // isSignedIn: this.context.isLoggedIn(this)
+    //   })
+    // });
   }
   componentWillUnmount() {
     this.context.cookies.removeChangeListener(() => { });
@@ -71,40 +63,12 @@ class NavigationMain extends Component<Props, State> {
     return (
       <div className={styles.NavigationMain + " scrollbarHandle"}>
         <div className={styles.blockIconButtonHolder}>
-
-          <Switch>
-            <Route path={"/myAccount"} render={props => (
-              this.state.isSignedIn ? (
-                <NavLink to="/myAccount/dashboard">
-                  <div className={styles.blockIconButton} ><span>{this.state.user ? this.state.user.firstname : ""}</span></div>
-                </NavLink>
-              ) : ""
-
-            )} />
-            <Route path={"/business"} render={props => (
-              this.state.isSignedIn ? (
-                <NavLink to="/myAccount">
-                  <div className={styles.blockIconButton} ><BiUser /><span>{this.state.user ? this.state.user.firstname : ""}</span></div>
-                </NavLink>
-              ) : ""
-
-            )} />
-            <Route path={"/"} render={props => (
-              this.state.isSignedIn ? (
-                <NavLink to="/myAccount">
-                  <div className={styles.blockIconButton} ><BiUser /><span>{this.state.user ? this.state.user.firstname : ""}</span></div>
-                </NavLink>
-              ) : ""
-
-            )} />
-
-          </Switch>
           |
-          <div className={styles.blockIconButton} title={"Help"}><BiQuestionMark />{/*<span>Help</span>*/}</div>
+          <div className={styles.blockIconButton} title={"Change Account"}><BiRefresh />{/*<span>Help</span>*/}</div>
           |
           <div className={styles.blockIconButton} title={"Theme"} onClick={() => { this.props.DarkModeChanger() }}><BiBulb /> </div>
           |
-          {this.state.isSignedIn ?
+          {/* {this.context.isLoggedIn(this) ?
             (
               <div className={styles.blockIconButton} title={"Sign Out"} onClick={this.logout}><FaSignOutAlt /></div>
             )
@@ -113,15 +77,21 @@ class NavigationMain extends Component<Props, State> {
               <NavLink to={"signin"} >
                 <div className={styles.blockIconButton} title={"Sign In"}><FaSignInAlt /><span>Sign In</span></div>
               </NavLink>
-            )}
+            )} */}
 
         </div>
         <hr />
         <Switch>
-          <Route path={"/myAccount"} render={props => (<NavigationUserTopView {...props} />)} />
-          <Route path={"/"} render={props => (<NavigationBusinessTopView {...props} />)} />
+          {this.state.user?
+          <Route path={"/myAccount"} render={props => (<NavigationUserTopView {...props} user={this.state.user} />)} />
+          :
+          ""
+          }
+          <Route path={"/business"} render={props => (<NavigationBusinessTopView {...props} />)} />
         </Switch>
-        <hr />
+
+        {this.state.user ? <hr /> : "" }
+       
         <Switch>
           <Route path={"/myAccount"} render={props => (<UserNavigations {...props} />)} />
           <Route path={["/business", "/"]} render={props => (<BusinessNavigations {...props} sideMenuSwitcher={this.props.sideMenuSwitcher} />)} />
@@ -160,13 +130,28 @@ const NavigationBusinessTopView = (props: any) => {
     </Link>
   );
 };
-const NavigationUserTopView = (props: any) => {
+const NavigationUserTopView = (props: { user?: User },) => {
   return (
     <div className={styles.topView}>
-      <div className={styles.logoHolder}> <img src={"http://localhost/profileImage.jpg"} alt={"store logo"} /></div>
+      {/* <div className={styles.logoHolder}> <img src={"http://localhost/profileImage.jpg"} alt={"store logo"} /></div> */}
+      <div className={styles.logoHolder}>
+        {
+          props.user?.image ?
+            <img src={props.user?.image} alt={"store logo"} />
+            :
+            <BiUser />
+        }
+      </div>
+
 
       <div className={styles.midView}>
-        <div className={styles.text}>{"Abel Michael"}</div>
+        <div className={styles.text}>
+          {
+            props.user?.firstName ? props.user?.firstName : ""
+          }&nbsp;
+          {props.user?.lastName ? props.user?.lastName : ""
+          }
+        </div>
       </div>
     </div>
   );

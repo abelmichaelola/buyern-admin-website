@@ -1,4 +1,3 @@
-import React, { Component } from 'react';
 import Button from '../ui/Button/Button';
 import TabNavigation, { TabNavigationItem } from '../ui/TabNavigation/TabNavigation';
 import styles from './FoodPage.module.scss';
@@ -7,13 +6,8 @@ import MainTag from '../ui/MainTag/MainTag';
 import { BiCheck } from 'react-icons/bi';
 import { FaStar, FaStarHalf } from 'react-icons/fa';
 import { Switch } from 'react-router-dom';
-interface Props {
-  match?: any;
-}
-interface State {
-
-}
-class FoodPage extends Component<Props, State> {
+import MainBodyTemplate from '../MainBodyTemplate/MainBodyTemplate';
+class FoodPage extends MainBodyTemplate {
   card = "card";
   render() {
     return (
@@ -21,6 +15,7 @@ class FoodPage extends Component<Props, State> {
         <div className={styles.topView} style={{ backgroundImage: `url("http://localhost/food2.jpg")` }}>
           <div className={styles.topViewMain}>
             <div className={styles.imageHolder}>
+            {this.state.sideBarTogglerView}
               <img src={"http://localhost/food2.jpg"} alt={"food"} />
             </div>
             <div className={styles.body}>
@@ -30,7 +25,7 @@ class FoodPage extends Component<Props, State> {
                 <h4>Duration: <small>Instant</small></h4>
                 <h4>Availability: <small>false</small></h4>
                 <h4>Visibility: <small>false</small></h4>
-                <h4>Id: <small>{this.props.match.params.foodId}</small></h4>
+                {/* <h4>Id: <small>{this.props.match.params.foodId}</small></h4> */}
                 <h4>Price: <small className={styles.price}>$8,000.00</small></h4>
               </div>
               <div className={styles.view2}>

@@ -1,8 +1,13 @@
 interface Location {
   address: string;
   address2: string;
-  zipcode: number;
+  zipCode: number;
   country: string;
   state: string;
+  city: string;
+  latLng: {
+    latitude:number;
+    longitude:number;
+  };
 }
 export default Location;

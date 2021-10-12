@@ -4,10 +4,12 @@ import Order from '../../../Models/Order';
 import OrderController from '../../../Controllers/OrderController';
 import { BiCheck } from 'react-icons/bi';
 import NavigationItem, { NavItemData } from '../../NavigationMain/NavigationItem/NavigationItem';
+import { ListDataManager } from '../../ui/ListDataManager';
 interface Props {
   history?: any;
   match?: any;
-  location: any;
+  location?: any;
+  listDataManager?: ListDataManager;
 }
 interface State {
   viewArray: any[];
@@ -19,11 +21,42 @@ class BashOrdersList extends Component<Props, State> {
     this.state = {
       viewArray: this.generateViews(orders)
     }
-
   }
-  generateViews = (orders: Order[]): JSX.Element[] => {
-    return orders.map((value: Order, index: number) => {
 
+  componentDidMount() {
+    if (!this.props.listDataManager) {
+      return;
+    }
+    if (!this.props.listDataManager.getList) {
+    return;  
+    }
+    this.props.listDataManager?.getList((navItems:any, listItems:any)=>{
+      this.setState({
+        viewArray: this.convertToList(navItems)
+      });
+    });
+  }
+
+  convertToList = (navItems: NavItemData[]): JSX.Element[] => {
+   return navItems.map((navItem: NavItemData, index: number, array: NavItemData[]) => {
+      return (<NavigationItem
+        key={index}
+        icon={navItem.icon}
+        endIcon={navItem.endIcon}
+        title={navItem.title}
+        subText={navItem.subText}
+        subText2={navItem.subText2}
+        wrapTitle={navItem.wrapTitle}
+        link={navItem.link}
+        anchorText={navItem.anchorText}
+        // padding={"0.1rem 0.5rem"}
+        isActive={true}
+      />)
+    })
+    
+  }
+    generateViews = (orders: Order[]): JSX.Element[] => {
+    return orders.map((value: Order, index: number) => {
       var navItem: NavItemData = {
         anchorText: "₦20,000.00" + this.props.match.params.bashId,
         title: value.name,
@@ -82,5 +115,4 @@ class BashOrdersList extends Component<Props, State> {
     );
   }
 }
-
 export default BashOrdersList;

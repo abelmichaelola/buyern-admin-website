@@ -39,6 +39,17 @@ class FirebaseConnect {
     this.firebaseStorage = getStorage(this.app);
     this.firebaseFunctions = getFunctions(this.app);
     // this.firebaseMessaging = getMessaging(this.app);
+    // signInWithEmailAndPassword(this.firebaseAuth, "email", "password")
+    //   .then((userCredential) => {
+    //     // Signed in
+    //     const user = userCredential.user;
+    //     user.
+    //     // ...
+    //   })
+    //   .catch((error) => {
+    //     const errorCode = error.code;
+    //     const errorMessage = error.message;
+    //   });;
   }
 }
 export default FirebaseConnect;

@@ -37,15 +37,16 @@
     align-items: center;
     box-sizing: border-box;
     border-radius: var(--border-radius);
-    padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+    padding: 0.2rem 0.5rem 0.2rem 0.5rem;
     cursor: pointer;
     &:hover {
-      background-color: var(--accent-color);
+      background-color: var(--bg-color-2);
       color: var(--color_on_accent);
     }
     .logoHolder {
       width: auto;
       height: auto;
+      font-size: 2rem;
       img {
         border-radius: 50%;
         object-fit: cover;

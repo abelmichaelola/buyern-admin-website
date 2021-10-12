@@ -1,7 +1,7 @@
 a {
   &.active {
     .NavigationItem {
-      background-color: var(--accent-secondary-color);
+      background-color: var(--accent-color);
       color: var(--color_on_accent) !important;
       * {
         color: var(--color_on_accent);
@@ -26,10 +26,8 @@ a {
   cursor: pointer;
   padding: 0.5rem 0.5rem;
   &:hover {
-    background-color: var(--accent-color);
-    * {
-      color: var(--color_on_accent);
-    }
+      background-color: var(--bg-color-2);
+  
   }
   .startIcon {
     font-size: 1.5rem;
