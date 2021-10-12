@@ -181,9 +181,8 @@ class UserDashboard extends Component<Props, State> {
           </div>
           <div className={this.cardStyle}>Dashboard Component</div>
           <div className={this.cardStyle}>Dashboard Component</div>
-          <div className={this.cardStyle}>Dashboard Component</div>
         </div>
-        <div className={styles.TitleHolder}>Analytics</div>
+        <div className={styles.TitleHolder}>Shoperde Eateries</div>
         <div className={styles.CardHolder + " " + styles.col3}>
           <div className={this.cardStyle}>Dashboard Component</div>
           <div className={this.cardStyle}>Dashboard Component</div>

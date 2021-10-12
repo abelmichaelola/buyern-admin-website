@@ -3,7 +3,7 @@ class ListDataManager {
     this.getList = listGetter;
     return this;
   };
-  getList?: Function;
+  getList!: Function;
   update?: Function;
 }
 export { ListDataManager };

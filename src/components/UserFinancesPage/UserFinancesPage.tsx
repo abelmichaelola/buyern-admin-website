@@ -36,31 +36,58 @@ class UserFinancesPage extends SplitView {
       </Switch>),
       LeftListSwitch: (
         <Switch>
-          <Route path={"*/transactions"} render={(props) => (<BashOrdersList {...props} listDataManager={new ListDataManager().setListGetter(this.getData)} />)} />,
-          {/* <Route path={"/"} render={(props) => (<Redirect to={"/bash/etdlghrth"} />)} />, */}
+          <Route path={"*/transactions"} render={(props) => (<BashOrdersList {...props} matchPath listDataManager={new ListDataManager().setListGetter(this.getDataSetter(props.match.url))} />)} />,
+          <Route path={"*/payouts"} render={(props) => {
+            return <BashOrdersList {...props} matchPath listDataManager={new ListDataManager().setListGetter(this.getDataSetter2(props.match.url))} />
+          }} />,
+          <Route exact path={"*/finances"} render={(props) => (<Redirect to={props.match.url + "/transactions"} />)} />,
         </Switch>
       )
     })
   }
-  // TransactionsController.ts
-  getData?: any = (callback: Function) => {
-    let transactions: Transaction[] = new TransactionController().getTransactions();
-    // console.log(products);
+  getDataSetter = (path: String) => {
+    var getData: any = (callback: Function) => {
+      let transactions: Transaction[] = new TransactionController().getTransactions();
+      console.log(path);
 
-    var navItems: NavItemData[] = transactions.map((value: Transaction, index: number) => {
-      var navItem: NavItemData = {
-        anchorText: value.dateCompleted  + " --- "+ value.type?.toString(),
-        title: value.title,
-        subText: value.status?.toString(),
-        endIcon: <BiCheck fontSize={"1.5rem"} />,
-        wrapTitle: true,
-        link: this.baseLink + "/transaction/" + value.id,
-        isActive: true,
-      };
-      return navItem;
-    })
-    callback(navItems, transactions);
+      var navItems: NavItemData[] = transactions.map((value: Transaction, index: number) => {
+        var navItem: NavItemData = {
+          anchorText: value.dateCompleted + " --- " + value.type?.toString(),
+          title: value.title,
+          subText: value.status?.toString(),
+          endIcon: <BiCheck fontSize={"1.5rem"} />,
+          wrapTitle: true,
+          link: value.id ? value.id : "",
+          isActive: true,
+        };
+        return navItem;
+      })
+      callback(navItems, transactions);
+    }
+    return getData;
   }
+  getDataSetter2 = (path: String) => {
+    var getData: any = (callback: Function) => {
+      let transactions: Transaction[] = new TransactionController().getTransactions();
+      console.log(path);
+
+      var navItems: NavItemData[] = transactions.map((value: Transaction, index: number) => {
+        var navItem: NavItemData = {
+          anchorText: value.dateCompleted + " --- " + value.type?.toString(),
+          title: value.title,
+          subText: value.status?.toString(),
+          endIcon: <BiCheck fontSize={"1.5rem"} />,
+          wrapTitle: true,
+          link: value.id ? value.id : "",
+          isActive: true,
+        };
+        return navItem;
+      })
+      callback(navItems, transactions);
+    }
+    return getData;
+  }
+  
 
   render() {
     return (

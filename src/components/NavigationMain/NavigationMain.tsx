@@ -87,7 +87,7 @@ class NavigationMain extends Component<Props, State> {
           :
           ""
           }
-          <Route path={"/business"} render={props => (<NavigationBusinessTopView {...props} />)} />
+          <Route path={"/business/:businessId"} render={props => (<NavigationBusinessTopView {...props} />)} />
         </Switch>
 
         {this.state.user ? <hr /> : "" }
@@ -110,7 +110,7 @@ class NavigationMain extends Component<Props, State> {
 
 const NavigationBusinessTopView = (props: any) => {
   return (
-    <Link to={'/business'} about={"business button"} >
+    <Link to={props.url + "/"} about={"business button"} >
 
       <div className={styles.topView}>
         {/* <div className={styles.logoHolder}> <img src={logo} alt={"store logo"} /></div> */}
@@ -192,7 +192,7 @@ const UserNavigations = (props: any) => {
       <NavigationItem
         endIcon={<BiPlus size={"1.8rem"} />}
         title={"Register Business"}
-        link={"registerBusiness"}
+        link={"/registerBusiness"}
         isActive={true}
       />
       {/* <NavigationItem

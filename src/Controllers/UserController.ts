@@ -30,7 +30,7 @@ class UserController {
     image: "http://localhost/profileImage.jpg",
     coverImage: "http://localhost/bg.jpg",
     accessJWT: "fugigaherughiuerhagruaidhgiruea",
-    theme: "dark",
+    theme: "light",
     financeId: "financeId",
     location: {
       address: "21, Alaka street Shasha Lagos",

@@ -1,4 +1,5 @@
 interface Location {
+  id?: string;
   address: string;
   address2: string;
   zipCode: number;

@@ -1,115 +1,127 @@
-import { BiCheck, BiErrorAlt, BiLoader } from 'react-icons/bi';
 import { Switch, Route, Redirect } from 'react-router';
-import { NavItemData } from '../NavigationMain/NavigationItem/NavigationItem';
 import OrderPage from '../OrderPage/OrderPage';
-import ListView from '../ui/ListView/ListView';
-import { SearchBarConstructor } from '../ui/SplitViewTemplateComponent/SplitViewLeftSide/SplitViewLeftSide';
-import { SplitViewTemplateComponent } from '../ui/SplitViewTemplateComponent/SplitViewTemplateComponent';
+import SplitViewLeftSide, { LeftSideBody, LeftSideTop, SearchBarConstructor } from '../ui/SplitViewTemplateComponent/SplitViewLeftSide/SplitViewLeftSide';
 import TabNavigation, { TabNavigationItem } from '../ui/TabNavigation/TabNavigation';
-// import styles from '." + this.props.match.path + "Page.module.scss';
+import BashOrdersList from './../OrdersPage/BashOrdersList/BashOrdersList';
+import styles from './FinancePage.module.scss';
+import { BiInfoCircle, BiCog, BiQuestionMark, BiCheck } from 'react-icons/bi';
+import SplitView from './../SplitView/SplitView';
+import { NavLink } from 'react-router-dom';
+import { ListDataManager } from '../ui/ListDataManager';
+import Transaction from './../../Models/Transaction';
+import TransactionController from '../../Controllers/TransactionController';
+import { NavItemData } from '../NavigationMain/NavigationItem/NavigationItem';
 
-class FinancePage extends SplitViewTemplateComponent {
-  list1: NavItemData[] = [];
-  payoutList: NavItemData[] = [];
-  // basePath: string = "/business/finances";
-  // basePath: string = "/finance";
-  constructor(props: any) {
-    super(props);
+class FinancePage extends SplitView {
+  leftViewPathString: string = "*/finances/:random";
+  baseLink = "/business/:businessId/finances/transactions";
+  componentDidMount() {
+    this.getBashes();
+  }
+  getBashes = () => {
+    this.setState({
+      tabNav: ([
+        <TabNavigationItem link={this.props.match.url + "/transactions"} text={"Transactions"} key={0} />,
+        <TabNavigationItem link={this.props.match.url + "/payouts"} text={"Payouts"} key={1} />,
+        <TabNavigationItem link={this.props.match.url + "/autoPayout"} text={"Auto Payouts"} key={2} />
+      ]),
+      SearchSwitch: (<Switch>
+        <Route path={"*/autoPayout"} render={(props) => (<SearchBarConstructor {...props} searchType={"Orders"} placeHolder={"Search Auto Payouts"} callback={() => { }} />)} />
+        <Route path={"*/payouts"} render={(props) => (<SearchBarConstructor {...props} searchType={"Orders"} placeHolder={"Search Payouts"} callback={() => { }} />)} />
+        <Route path={[this.props.match.url]} render={(props) => (<SearchBarConstructor {...props} searchType={"Transactions"} placeHolder={"Search Transactions"} callback={() => { }} />)} />
+      </Switch>),
+      LeftListSwitch: (
+        <Switch>
+          <Route path={"*/transactions"} render={(props) => (<BashOrdersList {...props} matchPath listDataManager={new ListDataManager().setListGetter(this.getDataSetter(props.match.url))} />)} />,
+          <Route path={"*/payouts"} render={(props) => {
+            return <BashOrdersList {...props} matchPath listDataManager={new ListDataManager().setListGetter(this.getDataSetter2(props.match.url))} />
+          }} />,
+          <Route exact path={"*/finances"} render={(props) => (<Redirect to={props.match.url + "/transactions"} />)} />,
+        </Switch>
+      )
+    })
+  }
+  getDataSetter = (path: String) => {
+    var getData: any = (callback: Function) => {
+      let transactions: Transaction[] = new TransactionController().getTransactions();
+      console.log(path);
 
-    this.tabNav = (
-      <TabNavigation>
-        <TabNavigationItem link={this.props.match.url + "/transactions"} text={"Transactions"} />
-        <TabNavigationItem link={this.props.match.url + "/payouts"} text={"Payouts"} />
-        <TabNavigationItem link={this.props.match.url + "/autoPayout"} text={"Auto Payouts"} />
-      </TabNavigation>
-    );
-    this.mainPageSwitch =
-      (<Switch>
-        <Route path={this.props.match.path + this.props.match.path + "/:orderId"} component={OrderPage} />
-      </Switch>
-      );
-    this.LeftListSwitch = (
-      <Switch>
-        {/* <Route path={this.props.match.path + "/autoPayout"} render={(props) => (<ListView {...props} navItems={this.payoutList} />)} />, */}
-        <Route path={this.props.match.path + "/payouts"} render={(props) => (<ListView {...props} navItems={this.payoutList} />)} />,
-        <Route path={[this.props.match.path + "/transactions"]} render={(props) => (<ListView {...props} navItems={this.list1} />)} />,
-        <Route exact path={[this.props.match.path]} render={(props) => (<Redirect {...props} to={this.props.match.path + "/transactions"}/>)} />,
-      </Switch>
+      var navItems: NavItemData[] = transactions.map((value: Transaction, index: number) => {
+        var navItem: NavItemData = {
+          anchorText: value.dateCompleted + " --- " + value.type?.toString(),
+          title: value.title,
+          subText: value.status?.toString(),
+          endIcon: <BiCheck fontSize={"1.5rem"} />,
+          wrapTitle: true,
+          link: value.id ? value.id : "",
+          isActive: true,
+        };
+        return navItem;
+      })
+      callback(navItems, transactions);
+    }
+    return getData;
+  }
+  getDataSetter2 = (path: String) => {
+    var getData: any = (callback: Function) => {
+      let transactions: Transaction[] = new TransactionController().getTransactions();
+      console.log(path);
+
+      var navItems: NavItemData[] = transactions.map((value: Transaction, index: number) => {
+        var navItem: NavItemData = {
+          anchorText: value.dateCompleted + " --- " + value.type?.toString(),
+          title: value.title,
+          subText: value.status?.toString(),
+          endIcon: <BiCheck fontSize={"1.5rem"} />,
+          wrapTitle: true,
+          link: value.id ? value.id : "",
+          isActive: true,
+        };
+        return navItem;
+      })
+      callback(navItems, transactions);
+    }
+    return getData;
+  }
+
+
+  render() {
+    return (
+      <div className={styles.SplitViewTemplateComponent}>
+        <Route exact path={"*/orders/activeOrders"} render={(props) => (<Redirect to={props.match.url + "/bash/allOrders"} />)} />
+        <Route exact={this.state.leftViewIsExact} path={this.state.leftViewPath} render={(props) => (
+          <SplitViewLeftSide {...props}>
+            <LeftSideTop toggleSideView={this.props.toggleSideView} tabNavigation={<TabNavigation>{this.state.tabNav}</TabNavigation >}>
+              {this.state.SearchSwitch}
+
+              <div className={"blockIconButtonHolder"} style={{ marginTop: "0.5rem" }}>
+                <NavLink to={this.props.match.url + "/help"} activeClassName={"active"}>
+                  <div className={"blockIconButton"} title={"Help"}><BiQuestionMark /><span>Help</span></div>
+                </NavLink>
+                |
+                <NavLink to={this.props.match.url + "/about"} activeClassName={"active"}>
+                  <div className={"blockIconButton"} title={"About"}><BiInfoCircle /><span>About</span></div>
+                </NavLink>
+                |
+                <NavLink to={this.props.match.url + "/settings"} activeClassName={"active"}>
+                  <div className={"blockIconButton"} title={"Settings"}><BiCog /><span>Settings</span></div>
+                </NavLink>
+              </div>
+            </LeftSideTop>
+            <LeftSideBody>
+              {this.state.LeftListSwitch}
+            </LeftSideBody>
+          </SplitViewLeftSide>
+        )} />
+        <div className={styles.SplitViewMainBody}>
+          <div className={this.scrollStyle + " " + styles.scrollView} style={{ height: "100vh" }}>
+            <Switch>
+              <Route exact path={["*/bash/:bashId/:orderId", "*/bash/:bashId/:orderId/*"]} render={(props) => (<OrderPage {...props} orderId={props.match.params.orderId} toggleSideView={this.props.toggleSideView} />)} />
+            </Switch>
+          </div>
+        </div>
+      </div>
     )
-    this.SearchSwitch = (<Switch>
-      <Route path={this.props.match.path + "/history"} render={(props) => (<SearchBarConstructor {...props} searchType={"Orders"} placeHolder={"Search Orders"} callback={() => { }} />)} />
-      <Route path={this.props.match.path + "/all"} render={(props) => (<SearchBarConstructor {...props} searchType={"Orders"} placeHolder={"Search All Orders"} callback={() => { }} />)} />
-      <Route path={[this.props.match.path, this.props.match.path + "/new"]} render={(props) => (<SearchBarConstructor {...props} searchType={"Orders"} placeHolder={"Search New Orders"} callback={() => { }} />)} />
-    </Switch>)
-    this.payoutList = [
-      {
-        title: "Add New",
-        wrapTitle: true,
-        link: "/yjdty",
-        isActive: true,
-      },
-      {
-        title: "Export Data - CSV",
-        wrapTitle: true,
-        link: "/jdtyry",
-        isActive: true,
-      },
-      {
-        anchorText: "Default - NG",
-        title: "Abel Michael Olalekan",
-        subText: "Bank Transfer",
-        subText2: "0511051552 - (GTBank)",
-        endIcon: <BiCheck fontSize={"1.5rem"} />,
-        wrapTitle: true,
-        link: "/dghsryhsrt",
-        isActive: true,
-      },
-      {
-        anchorText: "Default - UK",
-        title: "Abel Michael Olalekan",
-        subText: "Card Transfer",
-        subText2: "**** **** **** 4242 - (Mastercard)",
-        wrapTitle: true,
-        link: "/bsrnrs",
-        isActive: true,
-      }
-    ];
-    this.list1 = [
-      {
-        title: "Export Data - CSV",
-        wrapTitle: true,
-        link: this.props.match.path + "/jdtyry",
-        isActive: true,
-      },
-      {
-        anchorText: "5th June 2021",
-        title: "Order",
-        subText: "completed",
-        endIcon: <BiCheck fontSize={"1.5rem"} />,
-        wrapTitle: true,
-        link: "/bsrnrs",
-        isActive: true,
-      },
-      {
-        anchorText: "12:30 5th June 2021",
-        title: "Payout",
-        subText: "Processing",
-        endIcon: <BiLoader fontSize={"1.5rem"} />,
-        wrapTitle: true,
-        link: "/rtnry",
-        isActive: true,
-      },
-      {
-        anchorText: "5th June 2021",
-        title: "Order",
-        subText: "completed",
-        endIcon: <BiErrorAlt fontSize={"1.5rem"} />,
-        wrapTitle: true,
-        link: "/ratnywjya",
-        isActive: true,
-      },
-    ]
-
   }
 }
 export default FinancePage;

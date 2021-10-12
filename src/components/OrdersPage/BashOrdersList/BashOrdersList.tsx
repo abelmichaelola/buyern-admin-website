@@ -10,6 +10,7 @@ interface Props {
   match?: any;
   location?: any;
   listDataManager?: ListDataManager;
+  matchPath?: boolean;
 }
 interface State {
   viewArray: any[];
@@ -28,9 +29,9 @@ class BashOrdersList extends Component<Props, State> {
       return;
     }
     if (!this.props.listDataManager.getList) {
-    return;  
+      return;
     }
-    this.props.listDataManager?.getList((navItems:any, listItems:any)=>{
+    this.props.listDataManager?.getList((navItems: any, listItems: any) => {
       this.setState({
         viewArray: this.convertToList(navItems)
       });
@@ -38,7 +39,7 @@ class BashOrdersList extends Component<Props, State> {
   }
 
   convertToList = (navItems: NavItemData[]): JSX.Element[] => {
-   return navItems.map((navItem: NavItemData, index: number, array: NavItemData[]) => {
+    return navItems.map((navItem: NavItemData, index: number, array: NavItemData[]) => {
       return (<NavigationItem
         key={index}
         icon={navItem.icon}
@@ -47,15 +48,15 @@ class BashOrdersList extends Component<Props, State> {
         subText={navItem.subText}
         subText2={navItem.subText2}
         wrapTitle={navItem.wrapTitle}
-        link={navItem.link}
+        link={this.props.matchPath ? this.props.match.url + "/" + navItem.link : navItem.link}
         anchorText={navItem.anchorText}
         // padding={"0.1rem 0.5rem"}
         isActive={true}
       />)
     })
-    
+
   }
-    generateViews = (orders: Order[]): JSX.Element[] => {
+  generateViews = (orders: Order[]): JSX.Element[] => {
     return orders.map((value: Order, index: number) => {
       var navItem: NavItemData = {
         anchorText: "₦20,000.00" + this.props.match.params.bashId,
@@ -89,9 +90,16 @@ class BashOrdersList extends Component<Props, State> {
   componentDidUpdate(prevProps: Readonly<Props>, prevState: Readonly<State>, snapshot?: any) {
     if (this.props.match.params.bashId !== prevProps.match.params.bashId) {
       var orders: Order[] = this.getOrders(this.props.match.params.bashId);
-
       this.setState({
         viewArray: this.generateViews(orders)
+      })
+    }
+
+    if (this.props.match.path !== prevProps.match.path) {
+      this.props.listDataManager?.getList((navItems: any, listItems: any) => {
+        this.setState({
+          viewArray: this.convertToList(navItems)
+        });
       })
     }
 
